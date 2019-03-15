@@ -12,8 +12,8 @@ Rails.application.routes.draw do
       }
 
   get 'home/index'
-  get 'home/owner_dashboard'
-  get 'home/customer_dashboard'
+  # get 'home/owner_dashboard'
+  # get 'home/customer_dashboard'
 
   namespace :owners do
     resources :dashboard

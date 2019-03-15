@@ -26,7 +26,7 @@ class Owners::SessionsController < Devise::SessionsController
   # end
 
   def after_sign_in_path_for(resource)
-    home_owner_dashboard_path
+    owners_dashboard_index_path
   end
   
 end
