@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_14_110914) do
+ActiveRecord::Schema.define(version: 2019_03_15_092408) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,4 +44,19 @@ ActiveRecord::Schema.define(version: 2019_03_14_110914) do
     t.index ["reset_password_token"], name: "index_owners_on_reset_password_token", unique: true
   end
 
+  create_table "restaurants", force: :cascade do |t|
+    t.string "name"
+    t.string "city"
+    t.text "address"
+    t.string "price"
+    t.string "tags"
+    t.string "delivery_time"
+    t.string "delivery_fee"
+    t.bigint "customer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_restaurants_on_customer_id"
+  end
+
+  add_foreign_key "restaurants", "customers"
 end

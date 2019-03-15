@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   # get 'home/customer_dashboard'
 
   namespace :owners do
-    resources :dashboard
+    resources :dashboard, only: [:index]
   end
 
   namespace :customers do
