@@ -1,18 +1,38 @@
 <!-- <h1>Home#index</h1>
 <p>Find me in app/views/home/index.html.erb</p>
  -->
-<div>
-	<h1>Restaurant Owner/Manager</h1>
-<p>
-	<%= link_to "Sign In", new_owner_session_path %>
-</p>
-</div>
 
-<div>
+ <% if user_type == 'no' %>
+	<div>
+		<h1>Restaurant Owner/Manager</h1>
+	<p>
+		<%= link_to "Sign In", new_owner_session_path %>
+	</p>
+	</div>
+
+	<div>
+		<h1>Customer</h1>
+	<p>
+		<%= link_to "Sign In", new_customer_session_path %>
+	</p>
+	</div>
+
+<% elsif user_type == 'owner' %>
+	<div>
+		<h1>Restaurant Owner/Manager</h1>
+		
+		<p> <%= link_to "DashBoard", owners_dashboard_index_path %> </p>
+
+		<p> <%= link_to "Sign Out", destroy_owner_session_path, method: :delete, data: {confirm: "Are you sure to signout?" } %> </p>
+	</div>
+
+<% elsif user_type == 'customer' %>
+	<div>
 	<h1>Customer</h1>
-<p>
-	<%= link_to "Sign In", new_customer_session_path %>
-</p>
-</div>
+	
+	<p> <%= link_to "DashBoard", customers_dashboard_index_path %> </p>
 
-<!-- <#%= link_to "Sign Out", destroy_customer_session_path, method: :delete, data: {confirm: "Are you sure to signout?" } %> -->
+	<p> <%= link_to "Sign Out", destroy_customer_session_path, method: :delete, data: {confirm: "Are you sure to signout?" } %> </p>
+	</div>
+
+<% end %>

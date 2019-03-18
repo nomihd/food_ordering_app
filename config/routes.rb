@@ -11,12 +11,14 @@ Rails.application.routes.draw do
         sessions: 'customers/sessions'
       }
 
-  get 'home/index'
+  get 'home', to: 'home#index' 
   # get 'home/owner_dashboard'
   # get 'home/customer_dashboard'
 
+  # get 'owners/restaurants/index', to: 'restaurants#show'#action: :show, controller: 'restaurants'
   namespace :owners do
     resources :dashboard, only: [:index]
+    resources :restaurants, except: [:index]
   end
 
   namespace :customers do

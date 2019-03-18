@@ -1,0 +1,42 @@
+<br>
+<br>
+<%#= link_to "Add New Restaurant", new_restaurant_path %>
+<br>
+
+<% unless @restaurant.blank? %>
+  <h1>Restaurant Info</h1>
+  <div class="content table-responsive table-full-width">
+    <table class="table table-hover table-stripped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>City</th>
+          <th>Address</th>
+          <th>DeliveryFee</th>
+          <th>Price</th>
+          <th>DeliveryTime</th>
+          
+          <th colspan="5"></th>
+        </tr>
+      </thead>
+     
+      <tbody>
+          <%# @restaurants.each do |restaurant| %>
+          <tr>
+            <td><%= @restaurant.name %></td>
+            <td><%= @restaurant.city %></td>
+            <td><%= @restaurant.address %></td>
+            <td><%= @restaurant.delivery_fee %></td>
+            <td><%= @restaurant.price %></td>
+            <td><%= @restaurant.delivery_time %></td>
+            <!-- <td><#%= link_to "Show", restaurant %></td>
+            <td><#%= link_to "Edit", edit_restaurant_path(restaurant) %></td>
+            <td><#%= link_to "Destroy", restaurant, method: :delete, data: { confirm: "Are you sure?" } %></td> -->
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <%# else %>
+  <!-- <h1>Restaurant Info</h1> -->
+<%# end %>

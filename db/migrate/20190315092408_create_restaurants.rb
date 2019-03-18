@@ -8,7 +8,7 @@ class CreateRestaurants < ActiveRecord::Migration[5.2]
       t.string :tags
       t.string :delivery_time
       t.string :delivery_fee
-      t.references :customer, foreign_key: true
+      t.references :owner, foreign_key: true
 
       t.timestamps
     end

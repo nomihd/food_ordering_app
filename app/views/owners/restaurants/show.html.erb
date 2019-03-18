@@ -1,0 +1,42 @@
+	<div>
+		<strong>Name:</strong>
+		<%= @restaurant.name %>
+	</div>
+	<br>
+	
+	<div>
+		<strong>City:</strong>
+		<%= @restaurant.city %>
+	</div>
+	<br>
+	
+	<div>
+		<strong>Address:</strong>
+		<%= @restaurant.address %>
+	</div><br>
+
+	<div>
+		<strong>Price:</strong>
+		<%= @restaurant.price %>
+	</div><br>
+
+	<div>
+		<strong>Tags:</strong>
+		<%= @restaurant.tags %>
+	</div><br>
+
+	<div>
+		<strong>Delivery Time:</strong>
+		<%= @restaurant.delivery_time %>
+	</div><br>
+
+	<div>
+		<strong>Delivery Fee:</strong>
+		<%= @restaurant.delivery_fee %>
+	</div>
+	<br>
+	
+<%= link_to "Edit", edit_owners_restaurant_path(@restaurant) %>
+<%= link_to "Delete", owners_restaurant_path(@restaurant), method: :delete, data: {confirm: "Are you sure to delete?" } %>
+
+<%= link_to "Back to home page", owners_dashboard_index_path %>

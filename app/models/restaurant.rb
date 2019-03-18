@@ -1,3 +1,3 @@
 class Restaurant < ApplicationRecord
-	belongs_to :customer
+	belongs_to :owner
 end

@@ -2,5 +2,10 @@
 
 <p>Welcome <%= current_owner.first_name %> </p>
 
-<p><%= link_to "Create Restaurant", new_owners_dashboard_path %>	
+<% if current_owner.restaurant.nil? %>
+	<p><%= link_to "Create Restaurant", new_owners_restaurant_path %>	
+<% else %>
+	<p> <%= link_to "Show Restaurant", owners_restaurant_path(current_owner.restaurant) %>	
+<% end %>	
+
 <p><%= link_to "Sign Out", destroy_customer_session_path, method: :delete, data: {confirm: "Are you sure to signout?" } %> </p>

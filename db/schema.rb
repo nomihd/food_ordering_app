@@ -52,11 +52,11 @@ ActiveRecord::Schema.define(version: 2019_03_15_092408) do
     t.string "tags"
     t.string "delivery_time"
     t.string "delivery_fee"
-    t.bigint "customer_id"
+    t.bigint "owner_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["customer_id"], name: "index_restaurants_on_customer_id"
+    t.index ["owner_id"], name: "index_restaurants_on_owner_id"
   end
 
-  add_foreign_key "restaurants", "customers"
+  add_foreign_key "restaurants", "owners"
 end
