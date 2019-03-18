@@ -26,6 +26,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'devise'
 # cocoon for nested forms
 gem 'cocoon'
+#jquery 
+gem 'jquery-rails'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
