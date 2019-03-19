@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   namespace :owners do
     resources :dashboard, only: [:index]
     resources :restaurants, except: [:index]
+    resources :categories
   end
 
   namespace :customers do

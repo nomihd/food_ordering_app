@@ -1,0 +1,28 @@
+<h1>Listing Categories</h1>
+
+<%= link_to "Add New MenuItem", new_owners_category_path %>
+<table>
+  
+  <% @categories.each do |category| %>
+    <tr>
+      <th><h3><%= category.name %></h3></th>
+      <tr>
+        <th>ItemName |</th>
+        <th>Price |</th>
+        <th>Description |</th>
+        <% category.menu_items.each do |item| %>
+          <tr>
+            <td> <%= item.name %> </td>
+            <td> <%= item.price %> </td>
+            <td> <%= item.note %> </td>
+            <td> <%= link_to "Edit", edit_owners_category_path(item) %> | </td>
+            <td> <%= link_to "Delete", owners_category_path(item), method: :delete, data: {confirm: "Are you sure to delete?"} %> </td>
+               
+          </tr>
+        </tr>
+      <% end %>
+      <!-- <td><%#= article.text %></td>
+       <td><%#= link_to 'Show', article_path(article) %></td>-->
+    </tr>
+  <% end %>
+</table>
