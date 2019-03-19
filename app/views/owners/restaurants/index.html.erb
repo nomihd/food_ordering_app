@@ -1,9 +1,42 @@
-<br>
+<h1>Listing Categories</h1>
+
+<%= link_to "Update Menu", edit_owners_restaurant_path(current_owner.restaurant) %>
+<table>
+  
+  <% @categories.each do |category| %>
+    <tr>
+      <th><h3><%= category.name %></h3></th>
+      <tr>
+        <th><pre>Item Name            </pre></th>
+        <th><pre>Price                </pre></th>
+        <th><pre>Description          </pre></th>
+        <% category.menu_items.each do |item| %>
+          <tr>
+            <td> <%= item.name %> </td>
+            <% if item.variations.count > 0 %>
+              <td> Starting From <%= item.variations.order(:price).first.price.to_i%> Rs</td>
+            <% else %>
+              <td> <%= item.price %></td>
+            <% end %>
+            <td> <%= item.note %> </td>
+            <!-- <td> <%#= link_to "Edit", edit_owners_restaurant_path(item) %></td> -->
+            <!-- <td> <%#= link_to "Delete", owners_restaurant_path(item), method: :delete, data: {confirm: "Are you sure to delete?"} %> </td>
+                -->
+          </tr>
+        </tr>
+      <% end %>
+      <!-- <td><%#= article.text %></td>
+       <td><%#= link_to 'Show', article_path(article) %></td>-->
+    </tr>
+  <% end %>
+</table>
+
+<!-- <br>
 <br>
 <%#= link_to "Add New Restaurant", new_restaurant_path %>
 <br>
 
-<% unless @restaurant.blank? %>
+<#% unless @restaurant.blank? %>
   <h1>Restaurant Info</h1>
   <div class="content table-responsive table-full-width">
     <table class="table table-hover table-stripped">
@@ -23,20 +56,20 @@
       <tbody>
           <%# @restaurants.each do |restaurant| %>
           <tr>
-            <td><%= @restaurant.name %></td>
-            <td><%= @restaurant.city %></td>
-            <td><%= @restaurant.address %></td>
-            <td><%= @restaurant.delivery_fee %></td>
-            <td><%= @restaurant.price %></td>
-            <td><%= @restaurant.delivery_time %></td>
-            <!-- <td><#%= link_to "Show", restaurant %></td>
+            <td><%#= @restaurant.name %></td>
+            <td><%#= @restaurant.city %></td>
+            <td><%#= @restaurant.address %></td>
+            <td><%#= @restaurant.delivery_fee %></td>
+            <td><%#= @restaurant.price %></td>
+            <td><%#= @restaurant.delivery_time %></td>
+            <td><#%= link_to "Show", restaurant %></td>
             <td><#%= link_to "Edit", edit_restaurant_path(restaurant) %></td>
-            <td><#%= link_to "Destroy", restaurant, method: :delete, data: { confirm: "Are you sure?" } %></td> -->
+            <td><#%= link_to "Destroy", restaurant, method: :delete, data: { confirm: "Are you sure?" } %></td> 
           </tr>
-        <% end %>
+        <%# end %>
       </tbody>
     </table>
   </div>
   <%# else %>
-  <!-- <h1>Restaurant Info</h1> -->
-<%# end %>
+  <h1>Restaurant Info</h1>
+<%# end %> -->

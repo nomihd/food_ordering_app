@@ -12,8 +12,12 @@
         <th>Description |</th>
         <% category.menu_items.each do |item| %>
           <tr>
-            <td> <%= item.name %> </td>
-            <td> <%= item.price %> </td>
+            <td> <%= item.name %> | </td>
+            <% if item.variations.count > 0 %>
+              <td> Price Varies | </td>
+            <% else %>
+              <td> <%= item.price %> | </td>
+            <% end %>
             <td> <%= item.note %> </td>
             <td> <%= link_to "Edit", edit_owners_category_path(item) %> | </td>
             <td> <%= link_to "Delete", owners_category_path(item), method: :delete, data: {confirm: "Are you sure to delete?"} %> </td>

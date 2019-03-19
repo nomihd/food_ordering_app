@@ -1,0 +1,15 @@
+<div class='nested-fields'>
+    <div class="field">
+      <%= f.text_field :name, readonly: true %><%= link_to_remove_association "remove category", f %>
+    </div>
+</div>
+
+<h3>Menu Items</h3>
+  <div id='menu_items'>
+    <%= f.fields_for :menu_items do |menu| %>
+      <%= render 'menu_item_fields', :f => menu %>
+    <% end %>
+    <div class='links'>
+      <%= link_to_add_association 'add Menu Items', f, :menu_items %>
+    </div>
+</div>

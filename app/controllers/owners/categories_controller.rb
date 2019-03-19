@@ -2,12 +2,12 @@ class Owners::CategoriesController < ApplicationController
 	before_action :authenticate_owner!
 
 	def index
-		@categories = Category.all#.distinct
+		@categories = current_owner.restaurant.categories#Category.all#.distinct
 	end
 
 	def new
 		@category = Category.new
-		@category.menu_items.build
+		# @category.menu_items.build
 	end
 
 	def create
@@ -36,12 +36,12 @@ class Owners::CategoriesController < ApplicationController
 
 	def destroy
 		@menu_item = MenuItem.find(params[:id])
-		@category = @menu_item.category
+		# @category = @menu_item.category
 
 		if @menu_item.destroy
-			if @category.menu_items.count == 0
-				@category.destroy
-			end
+			# if @category.menu_items.count == 0
+			# 	@category.destroy
+			# end
 			redirect_to owners_categories_path
 		else
 			render 'index'

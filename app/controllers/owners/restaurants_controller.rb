@@ -1,33 +1,34 @@
 class Owners::RestaurantsController < ApplicationController
 	before_action :authenticate_owner!
 
-	# def index
-	# 	@restaurant = current_owner.restaurant
-	# end
-
-	def new
-		# @owner = Owner.find(current_owner.id)
-		# @owners.build_restaurant
-		if current_owner.restaurant.nil?
-			@restaurant = Restaurant.new
-		else
-			redirect_to owners_dashboard_index_path
-		end
-		# current_owner.build_restaurant
+	def index
+		@categories = current_owner.restaurant.categories
 	end
+
+	# def new
+	# 	# @owner = Owner.find(current_owner.id)
+	# 	# @owners.build_restaurant
+	# 	if current_owner.restaurant.nil?
+	# 		@restaurant = Restaurant.new
+	# 	else
+	# 		redirect_to owners_dashboard_index_path
+	# 	end
+	# 	# current_owner.build_restaurant
+	# end
 
 	def edit
 		# @owner = Owner.find(current_owner.id)
 		# @restaurant = @owner.restaurant
 		#@restaurant = current_owner.restaurant
 		# byebug
-		@restaurant = Restaurant.find(params[:id])
+		@restaurant = current_owner.restaurant
+		# @restaurant = Restaurant.find(params[:id])
 	end
 
 	def update
 		@restaurant = Restaurant.find(params[:id])
 		if @restaurant.update(restaurant_params)
-			redirect_to owners_restaurant_path(@restaurant)
+			redirect_to owners_restaurants_path
 		else
 			render 'edit'
 		end
@@ -57,7 +58,8 @@ class Owners::RestaurantsController < ApplicationController
 		end
 	end
 	def show
-		@restaurant = Restaurant.find_by(id: params[:id])
+		# @restaurant = Restaurant.find_by(id: params[:id])
+		@restaurant = current_owner.restaurant
 		if @restaurant.nil?
 			redirect_to owners_dashboard_index_path
 		else
@@ -68,7 +70,7 @@ class Owners::RestaurantsController < ApplicationController
 	private
 		def restaurant_params
 			if params[:restaurant].present?
-				params.require(:restaurant).permit(:name, :city, :address, :price, :tags, :delivery_time, :delivery_fee)
+				params.require(:restaurant).permit(:name, :city, :address, :price, :tags, :delivery_time, :delivery_fee, categories_attributes: [:id, :_destroy, :name, menu_items_attributes: [:id, :_destroy, :name, :price, :note, variations_attributes: [:id, :_destroy, :name, :price, :description], add_ons_attributes: [:id, :_destroy, :name, :price, :description]]])
 			end
 		end
 

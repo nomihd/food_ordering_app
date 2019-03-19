@@ -1,44 +1,39 @@
 <%= render 'owners/shared/error_messages', resource: @restaurant %>
-<%= form_for [:owners, @restaurant] do |form| %>
-  <p>
-    <%= form.label :name %><br>
-    <%= form.text_field :name %>
-  </p>
-  
-  <p>
-    <%= form.label :city %><br>
-    <%= form.text_field :city %>
-  </p>
-  
-  <p>
-    <%= form.label :address %><br>
-    <%= form.text_field :address %>
-  </p>
-  
-  <p>
-    <%= form.label :price %><br>
-    <%= form.text_field :price %>
-  </p>
-  
-  <p>
-    <%= form.label :tags %><br>
-    <%= form.text_area :tags %>
-  </p>
-  
-  <p>
-    <%= form.label :delivery_time %><br>
-    <%= form.text_area :delivery_time %>
-  </p>
-  
-  <p>
-    <%= form.label :delivery_fee %><br>
-    <%= form.text_field :delivery_fee %>
-  </p>
-   
-  <p>
-    <%= form.submit %>
-  </p>
+<%= form_for [:owners, @restaurant] do |f| %>
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+    
+    <%= f.label :city %>
+    <%= f.text_field :city %>
 
+    <%= f.label :address %>
+    <%= f.text_field :address %>
+
+    <%= f.label :price %>
+    <%= f.text_field :price %>
+  </div>
+  <div>
+    <%= f.label :tags %>
+    <%= f.text_area :tags %>
+    <%= f.label :delivery_time %>
+    <%= f.text_area :delivery_time %>
+    <%= f.label :delivery_fee %>
+    <%= f.text_field :delivery_fee %>
+  </div>
+
+  <h3>Category Section</h3>
+    <div id='cat_items'>
+      <%= f.fields_for :categories do |cat| %>
+        <%= render 'category_fields', :f => cat %>
+      <% end %>
+      <div class='links'>
+        <%= link_to_add_association 'add Category', f, :categories %>
+      </div>
+    </div>
+
+  <%= f.submit %>
+  
 <% end %>
 
 <!-- <#%= link_to "Back to home page", restaurants_path %> -->

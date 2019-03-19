@@ -1,0 +1,38 @@
+<div class='nested-fields'>
+    <table>
+    <tr>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+    <td><%= f.text_field :name %></td>
+    <td><%= f.text_field :price %></td>
+    <td><%= f.text_field :note %> <%= link_to_remove_association "remove menu item", f %></td>
+    </tr>
+    </table>
+    
+  </div>
+
+  <h3>Variations</h3>
+  <div id='variations'>
+    <%= f.fields_for :variations do |variation| %>
+      <%= render 'variation_fields', :f => variation %>
+    <% end %>
+    <div class='links'>
+      <%= link_to_add_association 'add Variation', f, :variations %>
+    </div>
+  </div>
+
+  <h3>Add-On</h3>
+  <div id='addons'>
+    <%= f.fields_for :add_ons do |add| %>
+      <%= render 'add_on_fields', :f => add %>
+    <% end %>
+    <div class='links'>
+      <%= link_to_add_association 'add Add-On', f, :add_ons %>
+    </div>
+  </div>
+
+  <p> ---------------- END ---------------------- </p>
+  
