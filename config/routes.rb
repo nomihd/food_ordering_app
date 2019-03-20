@@ -23,11 +23,11 @@ Rails.application.routes.draw do
   end
 
   namespace :customers do
-    resources :dashboard do
-      collection do
-        match 'search', to: 'dashboard#search', via: [:get, :post]
-      end
-    end
+    resources :dashboard# do
+    #   collection do
+    #     match 'search', to: 'dashboard#search', via: [:get, :post]
+    #   end
+    # end
   end
 
   

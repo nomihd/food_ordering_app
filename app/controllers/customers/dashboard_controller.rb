@@ -6,9 +6,7 @@ class Customers::DashboardController < ApplicationController
   	@restaurants = @q.result
   end
 
-  def search
-  	index
-  	render :index
+  def show
+  	@restaurant = Restaurant.find(params[:id])
   end
-
 end
