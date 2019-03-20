@@ -26,7 +26,8 @@ class Owners::RestaurantsController < ApplicationController
 	end
 
 	def update
-		@restaurant = Restaurant.find(params[:id])
+		# @restaurant = Restaurant.find(params[:id])
+		@restaurant = current_owner.restaurant
 		if @restaurant.update(restaurant_params)
 			redirect_to owners_restaurants_path
 		else
@@ -70,7 +71,7 @@ class Owners::RestaurantsController < ApplicationController
 	private
 		def restaurant_params
 			if params[:restaurant].present?
-				params.require(:restaurant).permit(:name, :city, :address, :price, :tags, :delivery_time, :delivery_fee, categories_attributes: [:id, :_destroy, :name, menu_items_attributes: [:id, :_destroy, :name, :price, :note, variations_attributes: [:id, :_destroy, :name, :price, :description], add_ons_attributes: [:id, :_destroy, :name, :price, :description]]])
+				params.require(:restaurant).permit(:name, :city, :address, :price, :tags, :delivery_time, :delivery_fee, categories_attributes: [:id, :_destroy, :name, menu_items_attributes: [:id, :_destroy, :name, :price, :note, variations_attributes: [:id, :_destroy, :name, :price, :description], add_ons_attributes: [:id, :_destroy, :name, :price, :description],images: []]])
 			end
 		end
 

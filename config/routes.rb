@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   # get 'owners/restaurants/index', to: 'restaurants#show'#action: :show, controller: 'restaurants'
   namespace :owners do
     resources :dashboard, only: [:index]
-    resources :restaurants, except: [:new, :destroy]
+    resources :restaurants, except: [:new, :create, :destroy]
     resources :categories
   end
 

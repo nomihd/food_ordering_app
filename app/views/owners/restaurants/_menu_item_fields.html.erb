@@ -8,7 +8,8 @@
     <tr>
     <td><%= f.text_field :name %></td>
     <td><%= f.text_field :price %></td>
-    <td><%= f.text_field :note %> <%= link_to_remove_association "remove menu item", f %></td>
+    <td><%= f.text_field :note %></td>
+    <td><%= f.file_field :images, multiple: true %><%= link_to_remove_association "remove menu item", f %></td>
     </tr>
     </table>
     
