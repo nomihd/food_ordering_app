@@ -1,11 +1,17 @@
 <div class='nested-fields'>
     <table>
     <tr>
+      <th>Image</th>
       <th>Name</th>
       <th>Price</th>
       <th>Description</th>
     </tr>
     <tr>
+    <% if f.object.images.attached? %>
+      <td><%= image_tag f.object.images.first, style: "width: 50px;eight: 50px;"  %> 
+    <% else %>
+      <td></td>
+    <% end %>
     <td><%= f.text_field :name %></td>
     <td><%= f.text_field :price %></td>
     <td><%= f.text_field :note %></td>

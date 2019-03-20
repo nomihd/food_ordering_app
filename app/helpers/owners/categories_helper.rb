@@ -1,2 +1,0 @@
-module Owners::CategoriesHelper
-end

@@ -1,5 +1,5 @@
 class Owners::RestaurantsController < ApplicationController
-	before_action :authenticate_owner!
+	before_action :authenticate_owner!, except: [:new, :index, :create]
 
 	def index
 		@categories = current_owner.restaurant.categories
@@ -22,6 +22,12 @@ class Owners::RestaurantsController < ApplicationController
 		#@restaurant = current_owner.restaurant
 		# byebug
 		@restaurant = current_owner.restaurant
+		# if params[:id].to_i == @restaurant.id
+		# 	@restaurant = Restaurant.find(@restaurant.id)
+		# else
+		# 	redirect_to owners_restaurants_path
+		# end
+		# redirect_to edit_owners_restaurant_path(@restaurant.id)
 		# @restaurant = Restaurant.find(params[:id])
 	end
 
@@ -71,7 +77,7 @@ class Owners::RestaurantsController < ApplicationController
 	private
 		def restaurant_params
 			if params[:restaurant].present?
-				params.require(:restaurant).permit(:name, :city, :address, :price, :tags, :delivery_time, :delivery_fee, categories_attributes: [:id, :_destroy, :name, menu_items_attributes: [:id, :_destroy, :name, :price, :note, variations_attributes: [:id, :_destroy, :name, :price, :description], add_ons_attributes: [:id, :_destroy, :name, :price, :description],images: []]])
+				params.require(:restaurant).permit(:name, :city, :address, :price, :tags, :delivery_time, :delivery_fee, categories_attributes: [:id, :_destroy, :name, menu_items_attributes: [:id, :_destroy, :name, :price, :note, images: [], variations_attributes: [:id, :_destroy, :name, :price, :description], add_ons_attributes: [:id, :_destroy, :name, :price, :description]]])
 			end
 		end
 
