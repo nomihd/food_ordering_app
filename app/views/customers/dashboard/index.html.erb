@@ -2,3 +2,41 @@
 
 <p> Welcome <%= current_customer.first_name + " " + current_customer.last_name%> </p>
 <p><%= link_to "Sign Out", destroy_customer_session_path, method: :delete, data: {confirm: "Are you sure to signout?" } %> </p>
+
+<p><%= link_to "Edit Profile", edit_customer_registration_path %> </p>
+<h1>All Restaurants</h1>
+
+<% unless @restaurants.blank? %>
+  <div class="content table-responsive table-full-width">
+    <table class="table table-hover table-stripped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>City</th>
+          <th>Address</th>
+          <th>DeliveryFee</th>
+          <th>Price</th>
+          <th>DeliveryTime</th>
+          
+          <th colspan="5"></th>
+        </tr>
+      </thead>
+     
+      <tbody>
+          <% @restaurants.each do |restaurant| %>
+          <tr>
+            <td><%= restaurant.name %></td>
+            <td><%= restaurant.city %></td>
+            <td><%= restaurant.address %></td>
+            <td><%= restaurant.delivery_fee %></td>
+            <td><%= restaurant.price %></td>
+            <td><%= restaurant.delivery_time %></td>
+            <td><%= link_to "Show", owners_restaurant_path(restaurant) %></td>
+            <!-- <td><%#= link_to "Edit", edit_restaurant_path(restaurant) %></td>
+            <td><%#= link_to "Destroy", restaurant, method: :delete, data: { confirm: "Are you sure?" } %></td>  -->
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
