@@ -4,6 +4,7 @@ class Customers::DashboardController < ApplicationController
   def index
   	@q = Restaurant.ransack(params[:q])
   	@restaurants = @q.result.includes(:categories, :menu_items)
+    @categories = Category.pluck(:name).uniq
   end
 
   def show

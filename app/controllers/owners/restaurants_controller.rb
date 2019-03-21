@@ -1,5 +1,5 @@
 class Owners::RestaurantsController < ApplicationController
-	before_action :authenticate_owner!, except: [:new, :index, :create, :show]
+	before_action :authenticate_owner!, only: [:index, :edit, :update]
 	before_action :set_resturant
 
 	def index
@@ -19,11 +19,6 @@ class Owners::RestaurantsController < ApplicationController
 
 	
 	def show
-		if @restaurant.nil?
-			redirect_to owners_dashboard_index_path
-		else
-			render 'show'
-		end
 	end
 
 	private

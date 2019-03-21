@@ -11,16 +11,10 @@
 	<h3> Search
   <%#= f.label :name %>
   <%= f.search_field :name_cont %>
-  <%= f.select :categories_name_eq, all_categories, include_blank: "Select Category" %>
+  <%= f.select :categories_name_eq, @categories, include_blank: "Select Category" %>
   <%= f.submit "Search" %>
 </h3>
 
-<% end %>
-
-<%= content_tag :table do %>
-  <%= content_tag :th, sort_link(@q, :name) %>
-  <%= content_tag :th, sort_link(@q, :city) %>
-  <%= content_tag :th, sort_link(@q, :delivery_fee) %>
 <% end %>
 <h1>All Restaurants</h1>
 
@@ -29,14 +23,14 @@
     <table class="table table-hover table-stripped">
       <thead>
         <tr>
-          <th>Name</th>
-          <th>City</th>
-          <th>Address</th>
-          <th>DeliveryFee</th>
-          <th>Price</th>
-          <th>DeliveryTime</th>
+          <th><%= sort_link(@q, :name, "Name") %></th>
+          <th><%= sort_link(@q, :city, "City") %></th>
+          <th><%= sort_link(@q, :address, "Address") %></th>
+          <th><%= sort_link(@q, :delivery_fee, "DeliveryFee") %></th>
+          <th><%= sort_link(@q, :price, "Price") %></th>
+          <th><%= sort_link(@q, :delivery_time, "DeliveryTime") %></th>
           
-          <th colspan="5"></th>
+          <th colspan="6"></th>
         </tr>
       </thead>
      
@@ -49,7 +43,7 @@
             <td><%= restaurant.delivery_fee %></td>
             <td><%= restaurant.price %></td>
             <td><%= restaurant.delivery_time %></td>
-            <td><%#= link_to "Show", owners_restaurant_path(restaurant) %></td>
+            <td><%= link_to "Show", customers_restaurant_path(restaurant) %></td>
             <!-- <td><%#= link_to "Edit", edit_restaurant_path(restaurant) %></td>
             <td><%#= link_to "Destroy", restaurant, method: :delete, data: { confirm: "Are you sure?" } %></td>  -->
           </tr>

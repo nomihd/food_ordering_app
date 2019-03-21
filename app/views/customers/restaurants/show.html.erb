@@ -1,0 +1,100 @@
+<div>
+  <strong><%= @restaurant.name %></strong>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<%= @restaurant.price %>
+  <br>
+  <%= @restaurant.address %>
+  <br>
+  <%= @restaurant.city %>
+  <br>
+  <strong>Tags:</strong>
+  <%= @restaurant.tags %>
+<br>
+  <strong>Delivery Time:</strong>
+  <%= @restaurant.delivery_time %>
+  &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;
+  <strong>Delivery Fee:</strong>
+  <%= @restaurant.delivery_fee %>
+</div>
+<br>
+
+<% @restaurant.categories.each do |category| %>
+  <table>    
+
+    <tr>
+      <th><h3>Category: <%= category.name %></h3></th>
+    </tr>
+    <tr>
+      <th>Image</th>
+      <th>Item Name</th>
+      <th>Price</th>
+      <th>Description</th>
+    </tr>
+      <% category.menu_items.with_attached_images.each do |item| %>
+        <tr>
+          <% if item.images.attached? %>
+            <td><%= image_tag item.images.first, style: "width: 50px;eight: 50px;" %> </td>
+          <% else %>
+            <td></td>
+          <% end %> 
+          <td> <%= item.name %> </td>
+          <% if item.variations.count > 0 %>
+            <td> Starting From <%= item.variations.order(:price).first.price.to_i%> Rs</td>
+          <% else %>
+            <td> <%= item.price %></td>
+          <% end %>
+          <td> <%= item.note %> </td>
+          <!-- <td> <%#= link_to "Edit", edit_owners_restaurant_path(item) %></td> -->
+          <!-- <td> <%#= link_to "Delete", owners_restaurant_path(item), method: :delete, data: {confirm: "Are you sure to delete?"} %> </td>
+              -->
+        </tr>
+        
+        <% if item.variations.count > 0 %>
+          <tr>
+            <table>
+              <tr>
+                <h5>Variations </h5>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Description</th>
+              </tr>
+              <% item.variations.each do |variation| %>
+              <tr>
+                <td> <%= variation.name %></td>
+                <td> <%= variation.price %></td>
+                <td> <%= variation.description %></td>
+              </tr>
+              <% end %>
+            </table>
+          </tr>
+        <% end %>
+
+        <% if item.add_ons.count > 0 %>
+          <tr>
+            <table>
+              <tr>
+                <h5>Add-Ons</h5>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Description</th>
+              </tr>
+              <% item.add_ons.each do |add| %>
+              <tr>
+                <td> <%= add.name %></td>
+                <td> <%= add.price %></td>
+                <td> <%= add.description %></td>
+              </tr>
+              <% end %>
+            </table>
+          </tr>
+        <% end %>
+    <!-- <td><%#= article.text %></td>
+     <td><%#= link_to 'Show', article_path(article) %></td>-->
+    <% end %>
+<tr>------------------------------------------------------------------------------------------------------</tr>
+<% end %>
+        
+</table>
+
+<%#= link_to "Update Menu", edit_owners_restaurant_path(@restaurant) %>
+<%#= link_to "Delete", owners_restaurant_path(@restaurant), method: :delete, data: {confirm: "Are you sure to delete?" } %>
+
+<%#= link_to "Back to home page", owners_dashboard_index_path %>
