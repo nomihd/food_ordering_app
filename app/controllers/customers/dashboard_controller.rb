@@ -3,7 +3,7 @@ class Customers::DashboardController < ApplicationController
 
   def index
   	@q = Restaurant.ransack(params[:q])
-  	@restaurants = @q.result
+  	@restaurants = @q.result.includes(:categories, :menu_items)
   end
 
   def show

@@ -11,6 +11,8 @@
 	<h3> Search
   <%#= f.label :name %>
   <%= f.search_field :name_cont %>
+  <%= f.select :categories_name_eq, all_categories, include_blank: "Select Category" %>
+  <%= f.submit "Search" %>
 </h3>
 
 <% end %>

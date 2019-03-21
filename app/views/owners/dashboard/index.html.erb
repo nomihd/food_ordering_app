@@ -2,14 +2,14 @@
 
 <p>Welcome <%= current_owner.first_name %> </p>
 
-<% if current_owner.restaurant.nil? %>
-	<p><%= link_to "Create Restaurant", new_owners_restaurant_path %>	
-<% else %>
+<%# if current_owner.restaurant.nil? %>
+	<!-- <p><%#= link_to "Create Restaurant", new_owners_restaurant_path %>	 -->
+<%# else %>
 	<!-- create menu items link here -->
 	<!-- <p> <%#= link_to "Add Category", new_owners_category_path %>	 -->
 	<p> <%= link_to "Update Menu", edit_owners_restaurant_path(current_owner.restaurant) %>		
 	<p> <%= link_to "Show Restaurant", owners_restaurant_path(current_owner.restaurant) %>	
 	<p> <%= link_to "Show Menu", owners_restaurants_path %>	
-<% end %>	
+<%# end %>	
 
 <p><%= link_to "Sign Out", destroy_customer_session_path, method: :delete, data: {confirm: "Are you sure to signout?" } %> </p>
