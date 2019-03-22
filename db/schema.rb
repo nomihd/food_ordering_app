@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_19_124558) do
+ActiveRecord::Schema.define(version: 2019_03_22_055256) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,6 +79,48 @@ ActiveRecord::Schema.define(version: 2019_03_19_124558) do
     t.index ["category_id"], name: "index_menu_items_on_category_id"
   end
 
+  create_table "order_add_ons", force: :cascade do |t|
+    t.string "name"
+    t.integer "price"
+    t.string "description"
+    t.bigint "order_item_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_item_id"], name: "index_order_add_ons_on_order_item_id"
+  end
+
+  create_table "order_items", force: :cascade do |t|
+    t.string "name"
+    t.integer "quantity"
+    t.integer "price"
+    t.bigint "menu_item_id"
+    t.bigint "order_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["menu_item_id"], name: "index_order_items_on_menu_item_id"
+    t.index ["order_id"], name: "index_order_items_on_order_id"
+  end
+
+  create_table "order_variations", force: :cascade do |t|
+    t.string "name"
+    t.integer "price"
+    t.string "description"
+    t.bigint "order_item_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_item_id"], name: "index_order_variations_on_order_item_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer "sub_total"
+    t.integer "delivery_fee"
+    t.integer "total"
+    t.bigint "customer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_orders_on_customer_id"
+  end
+
   create_table "owners", force: :cascade do |t|
     t.string "first_name", default: "", null: false
     t.string "last_name", default: "", null: false
@@ -121,6 +163,11 @@ ActiveRecord::Schema.define(version: 2019_03_19_124558) do
   add_foreign_key "add_ons", "menu_items"
   add_foreign_key "categories", "restaurants"
   add_foreign_key "menu_items", "categories"
+  add_foreign_key "order_add_ons", "order_items"
+  add_foreign_key "order_items", "menu_items"
+  add_foreign_key "order_items", "orders"
+  add_foreign_key "order_variations", "order_items"
+  add_foreign_key "orders", "customers"
   add_foreign_key "restaurants", "owners"
   add_foreign_key "variations", "menu_items"
 end
