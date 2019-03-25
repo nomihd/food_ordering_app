@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   end
 
   namespace :customers do
+    resources :orders
     resources :restaurants
     resources :dashboard, only: [:index]# do
     #   collection do

@@ -1,0 +1,14 @@
+<% if !@order_item.blank? %>
+  <table>
+  <%#= @order.order_items.class %>
+  <% @order.order_items.each do |oi| %>
+    <tr>
+      <td><%= button_to "+", customers_orders_path, data: { id: oi.id, item_id: oi.menu_item.id } %> </td>
+      <td><%= button_to "-", customers_orders_path, id: oi.id %> </td>
+      <td><%= oi.quantity %> x </td>
+      <td><%= oi.name %></td>
+      <td><%= oi.price * oi.quantity %> </td>
+    </tr>
+  <% end %>
+  </table>
+<% end %>
