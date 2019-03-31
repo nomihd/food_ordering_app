@@ -1,6 +1,6 @@
 class AddToCart
   attr_reader :order, :params, :menu_item
-  attr_accessor :order_item, :variation, :session
+  attr_accessor :order_item, :variation, :session, :order_items
 
   def self.call(order:, params:, session:)
     self.new(order: order, params: params, session: session).call
@@ -12,28 +12,44 @@ class AddToCart
     @session = session
     @menu_item = MenuItem.find(params[:item_id])
     @variation = menu_item.variations.find_by(id: params[:variation_id])
-    @order_items = order.order_items.where(menu_item: menu_item,variation: params[:variation_id])
+    @order_items = order.order_items.where(menu_item: menu_item,variation: params[:variation_id]) || nil
     
-    @order_item = @order_items.take
+    @order_item = order_items.take# || nil
+    
     
     if variation.present?
       if params[:add_ids].present?
-        @order_item = fetch_order_item_by_add_on
+        @order_item = fetch_order_item_by_add_on(order_items: @order_items)
       else
-        @order_item = order.order_items.where(menu_item: menu_item, variation_id: params[:variation_id]).take
+        @order_item = fetch_order_item_without_add_on(order_items: @order_items)
       end
-    else
-      @order_item = fetch_order_item_by_add_on
+    elsif params[:add_ids].present?
+        @order_item = fetch_order_item_by_add_on
     end
 
   end
 
-  # fetch order_item according to add_ons
-  def fetch_order_item_by_add_on
-    
+  def fetch_order_item_without_add_on(order_items:)
+    existing_item_without_add_on = true
+    order_items.each do |oi|
+      if !oi.add_ons.present?
+        @order_item = order.order_items.find(oi.id)
+        existing_item_without_add_on = false
+        break
+      end
+    end
+
+    if existing_item_without_add_on
+      @order_item = nil
+    end
+
+    return @order_item
+  end
+
+  def fetch_order_item_by_add_on(order_items:)
     existing_item = false
-    @order_items.joins(:add_ons).each do |oi|
-      if oi.add_ons.pluck('id') == params[:add_ids].map(&:to_i)
+    order_items.joins(:add_ons).each do |oi|
+      if oi.add_ons.pluck('id').sort == params[:add_ids].map(&:to_i)
         @order_item = order.order_items.find(oi.id)
         existing_item = true
         break
@@ -44,7 +60,7 @@ class AddToCart
     if !existing_item
       @order_item = nil
     end
-
+    
     return @order_item
   end
 

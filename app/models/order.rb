@@ -6,7 +6,8 @@ class Order < ApplicationRecord
   def calculate
     sub_total = 0
     self.order_items.each do |o|
-      sub_total = sub_total + (o.quantity * o.price)
+      price_plus_add_on = o.price + o.order_add_ons.pluck(:price).sum
+      sub_total = sub_total + (o.quantity * price_plus_add_on)
     end
     self[:sub_total] = sub_total
     return sub_total

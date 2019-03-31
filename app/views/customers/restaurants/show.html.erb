@@ -93,7 +93,7 @@
                     <td> <%= add.name %></td>
                     <td> <%= add.price %></td>
                     <td> <%= add.description %></td>
-                    <td> <%= radio_button_tag :add_id, add.id %>
+                    <td> <%= check_box_tag 'add_ids[]', add.id %>
                   </tr>
                   <% end %>
                 </table>
@@ -110,7 +110,7 @@
 <% end %>  <!-- Form end -->
 
 
-<div class="cart" style=" margin-left: 930px;margin-top: -643px;">
+<div class="cart" style=" margin-left: 800px;margin-top: -643px;">
   <p> <%= @restaurant.delivery_time %> </p>
   <h3>Your order <%= @restaurant.name %> </h3>
   <div class="order_items" > </div>

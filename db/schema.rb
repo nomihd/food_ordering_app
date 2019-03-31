@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_22_055256) do
+ActiveRecord::Schema.define(version: 2019_03_29_092919) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -86,6 +86,8 @@ ActiveRecord::Schema.define(version: 2019_03_22_055256) do
     t.bigint "order_item_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "add_on_id"
+    t.index ["add_on_id"], name: "index_order_add_ons_on_add_on_id"
     t.index ["order_item_id"], name: "index_order_add_ons_on_order_item_id"
   end
 
@@ -97,18 +99,10 @@ ActiveRecord::Schema.define(version: 2019_03_22_055256) do
     t.bigint "order_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "variation_id"
     t.index ["menu_item_id"], name: "index_order_items_on_menu_item_id"
     t.index ["order_id"], name: "index_order_items_on_order_id"
-  end
-
-  create_table "order_variations", force: :cascade do |t|
-    t.string "name"
-    t.integer "price"
-    t.string "description"
-    t.bigint "order_item_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["order_item_id"], name: "index_order_variations_on_order_item_id"
+    t.index ["variation_id"], name: "index_order_items_on_variation_id"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -163,10 +157,11 @@ ActiveRecord::Schema.define(version: 2019_03_22_055256) do
   add_foreign_key "add_ons", "menu_items"
   add_foreign_key "categories", "restaurants"
   add_foreign_key "menu_items", "categories"
+  add_foreign_key "order_add_ons", "add_ons"
   add_foreign_key "order_add_ons", "order_items"
   add_foreign_key "order_items", "menu_items"
   add_foreign_key "order_items", "orders"
-  add_foreign_key "order_variations", "order_items"
+  add_foreign_key "order_items", "variations"
   add_foreign_key "orders", "customers"
   add_foreign_key "restaurants", "owners"
   add_foreign_key "variations", "menu_items"

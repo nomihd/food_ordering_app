@@ -1,6 +1,7 @@
 class OrderItem < ApplicationRecord
   belongs_to :menu_item
   belongs_to :order
-  has_many :order_variations
+  belongs_to :variation, optional: true
   has_many :order_add_ons
+  has_many :add_ons, through: :order_add_ons
 end
