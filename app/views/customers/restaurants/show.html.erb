@@ -113,7 +113,11 @@
 <div class="cart" style=" margin-left: 800px;margin-top: -643px;">
   <p> <%= @restaurant.delivery_time %> </p>
   <h3>Your order <%= @restaurant.name %> </h3>
-  <div class="order_items" > </div>
+  <div class="order_items" >
+    <% if @order.present? %>
+      <%= render 'customers/orders/cart' %>
+    <% end %>
+  </div>
   <p> --------------------------------------------------------</p>
   <div class="sub_total">Subtotal: 0</div>
   <div class="DeliveryFee">Delivery Fee: <%= @restaurant.delivery_fee %> </div>

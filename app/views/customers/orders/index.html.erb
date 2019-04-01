@@ -1,0 +1,30 @@
+<h2> Past Orders </h2>
+<ul>
+<% @orders.order(created_at: :asc).each do |order| %>
+  <li>
+    <h3> <%= @restaurant.name %> </h3>
+    <%= order.created_at %>
+    <div class ="total" style="margin-left: 250px;margin-top: -18px"> <%= "Rs #{order.sub_total}" %></div>
+    <div class ="re_order" style="margin-left: 250px" >
+      <%= button_to "ReOrder", customers_restaurant_path(@restaurant), method: :get, params: {order_id: order.id} %> </div>
+    <ul>
+    <% order.order_items.order(created_at: :asc).each do |oi| %>
+      <li>
+        <%= oi.quantity %> x 
+        <% if oi.variation.present? %>
+          <%= "#{oi.name} - #{oi.variation.name}"%>
+        <% else %>
+          <%= oi.name %>
+        <% end %>
+      <ul>
+        <% oi.order_add_ons.each do |add_on| %>
+          <li><%= "+ #{add_on.name}" %></li>
+        <% end %>
+      </ul>
+    </li>
+    <% end %>
+    </ul>
+      
+  </li>
+<% end %>
+</ul>
