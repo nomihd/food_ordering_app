@@ -15,7 +15,7 @@ class AddToCart
     @order_items = order.order_items.where(menu_item: menu_item,variation: params[:variation_id]) || nil
     
     @order_item = order_items.take# || nil
-    
+
     
     if variation.present?
       if params[:add_ids].present?
@@ -60,7 +60,7 @@ class AddToCart
     if !existing_item
       @order_item = nil
     end
-    
+
     return @order_item
   end
 
@@ -99,6 +99,8 @@ class AddToCart
 
       end
       
+      order.save # to update sub_total 
+
       return order
     
     end

@@ -2,8 +2,9 @@
 <%#= @order.order_items.class %>
 <% @order.order_items.order(created_at: :asc).each do |oi| %>
   <tr>
-    <td><%= button_to "+", customers_orders_path, data: { id: oi.id, item_id: oi.menu_item.id } %> </td>
-    <td><%= button_to "-", customers_orders_path, id: oi.id %> </td>
+    <td><%= button_to "+", customers_order_path(@order), method: :patch, remote: true, params: { func: "add", order_item_id: oi.id } %>
+    </td>
+    <td><%= button_to "-", customers_order_path(@order), method: :patch, remote: true, params: { func: "sub", order_item_id: oi.id } %> </td>
     <td><%= oi.quantity %> x </td>
     <% if oi.variation.present? %>
       <td><%= "#{oi.name} - #{oi.variation.name}"%></td>
@@ -11,16 +12,20 @@
       <td><%= oi.name %></td>
     <% end %>
 
-    <td><%= oi.price * oi.quantity %> </td>
-    <% oi.order_add_ons.each do |add_on| %>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td><%= "+ #{add_on.name}" %></td>
-      </tr>
-    <% end %>
+    <% if oi.order_add_ons.present? %>
+      <td><%= (oi.price + oi.order_add_ons.pluck(:price).sum) * oi.quantity %> </td>
+      <% oi.order_add_ons.each do |add_on| %>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td><%= "+ #{add_on.name}" %></td>
+        </tr>
+      <% end %>
     
+    <% else %>
+      <td><%= oi.price * oi.quantity %> </td>
+    <% end %>
   </tr>
 <% end %>
 </table>

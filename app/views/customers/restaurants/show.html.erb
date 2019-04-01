@@ -1,4 +1,3 @@
-<%= render 'customers/shared/error_messages', resource: @order %>
 <div>
   <% if @restaurant.categories.first.menu_items.first.images.attached? %>
                 <div><%= image_tag @restaurant.categories.first.menu_items.first.images.first %> </div>
