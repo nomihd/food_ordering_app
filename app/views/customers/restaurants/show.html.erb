@@ -51,6 +51,7 @@
               <td> <%= item.note %> </td>
               <%= hidden_field_tag :item_id, item.id %>
               <td> <%= submit_tag "Add" %> </td>
+              <td><%= text_field_tag :quantity, 1, style: "width:50px" %></td>
               <!-- <td> <%#= link_to "Edit", edit_owners_restaurant_path(item) %></td> -->
               <!-- <td> <%#= link_to "Delete", owners_restaurant_path(item), method: :delete, data: {confirm: "Are you sure to delete?"} %> </td>
                   -->
@@ -115,8 +116,6 @@
   <div class="order_items" > </div>
   <p> --------------------------------------------------------</p>
   <div class="sub_total">Subtotal: 0</div>
-  <%#= hidden_field_tag :restaurant_id, @restaurant.id %>
   <div class="DeliveryFee">Delivery Fee: <%= @restaurant.delivery_fee %> </div>
   <div class="total">Total: 0</div>
-  <%#= render 'customers/orders/cart' %>
 </div>

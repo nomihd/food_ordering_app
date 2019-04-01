@@ -26,6 +26,10 @@
     <% else %>
       <td><%= oi.price * oi.quantity %> </td>
     <% end %>
+    <td><%= button_to "x", delete_cart_row_customers_order_path(@order), method: :delete, remote: true, params: {order_item_id: oi.id } %> </td>
+    
   </tr>
 <% end %>
 </table>
+
+<div><%= button_to "Delete All", customers_order_path(@order), method: :delete, remote: true, data: {confirm: "Are you sure to clear cart?"} %> </div>

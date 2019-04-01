@@ -1,6 +1,5 @@
 class Order < ApplicationRecord
   belongs_to :customer
-  before_destroy :calculate
   has_many :order_items, dependent: :destroy
   before_save :calculate
   def calculate

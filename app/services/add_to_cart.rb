@@ -78,9 +78,9 @@ class AddToCart
       price = variation.price if variation.present?
       
       if variation.present?
-        @order_item = order.order_items.new(name: menu_item.name, price: price, quantity: 1, menu_item: menu_item, variation: variation)
+        @order_item = order.order_items.new(name: menu_item.name, price: price, quantity: params[:quantity], menu_item: menu_item, variation: variation)
       else  
-        @order_item = order.order_items.new(name: menu_item.name, price: price, quantity: 1, menu_item: menu_item)
+        @order_item = order.order_items.new(name: menu_item.name, price: price, quantity: params[:quantity], menu_item: menu_item)
       end
 
       order.save
@@ -131,7 +131,7 @@ class AddToCart
     end
 
     def update_quantity
-      order_item.update(quantity: order_item.quantity+1)
+      order_item.update(quantity: order_item.quantity + params[:quantity].to_i)
       order.save
     end
 end

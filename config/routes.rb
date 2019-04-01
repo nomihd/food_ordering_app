@@ -23,7 +23,9 @@ Rails.application.routes.draw do
   end
 
   namespace :customers do
-    resources :orders
+    resources :orders do
+      delete 'delete_cart_row', on: :member
+    end
     resources :restaurants
     resources :dashboard, only: [:index]# do
     #   collection do
