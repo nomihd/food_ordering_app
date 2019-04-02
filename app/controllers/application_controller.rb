@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
       current_customer.orders.find(session[:order_id])
     else
       # @order = Order.new
-      current_customer.orders.build
+      current_customer.orders.new(status: "in_process")
     end
   end
 end

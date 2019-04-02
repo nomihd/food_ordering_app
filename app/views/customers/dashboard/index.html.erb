@@ -4,6 +4,7 @@
 <p><%= link_to "Sign Out", destroy_customer_session_path, method: :delete, data: {confirm: "Are you sure to signout?" } %> </p>
 
 <p><%= link_to "Edit Profile", edit_customer_registration_path %> </p>
+<p><%= link_to "My Orders", customers_orders_path %> </p>
 
 <%= search_form_for [:customers, @q], url: customers_dashboard_index_path do |f| %>
 	
@@ -43,7 +44,7 @@
             <td><%= restaurant.delivery_fee %></td>
             <td><%= restaurant.price %></td>
             <td><%= restaurant.delivery_time %></td>
-            <td><%= link_to "Show", customers_restaurant_path(restaurant) %></td>
+            <td><%= link_to "Show", customers_restaurant_path(restaurant), data: { turbolinks: false} %></td>
             <!-- <td><%#= link_to "Edit", edit_restaurant_path(restaurant) %></td>
             <td><%#= link_to "Destroy", restaurant, method: :delete, data: { confirm: "Are you sure?" } %></td>  -->
           </tr>

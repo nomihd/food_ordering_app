@@ -34,3 +34,6 @@
 
 <div><%= button_to "Delete All", customers_order_path(@order), method: :delete, remote: true, data: {confirm: "Are you sure to clear cart?"} %> </div>
 
+<div class ="checkout" >
+  <%= button_to "Checkout", checkout_customers_order_path(@order), method: :patch %>
+</div>

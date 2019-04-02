@@ -1,12 +1,12 @@
 <h2> Past Orders </h2>
 <ul>
-<% @orders.order(created_at: :asc).each do |order| %>
+<% @orders.order(created_at: :desc).each do |order| %>
   <li>
-    <h3> <%= @restaurant.name %> </h3>
+    <h3> <%= order.order_items.first.menu_item.category.restaurant.name %> </h3>
     <%= order.created_at %>
     <div class ="total" style="margin-left: 250px;margin-top: -18px"> <%= "Rs #{order.sub_total}" %></div>
     <div class ="re_order" style="margin-left: 250px" >
-      <%= button_to "ReOrder", customers_restaurant_path(@restaurant), method: :get, params: {order_id: order.id} %> </div>
+      <%= button_to "ReOrder", customers_restaurant_path(order.order_items.first.menu_item.category.restaurant), method: :get, params: {order_id: order.id} %> </div>
     <ul>
     <% order.order_items.order(created_at: :asc).each do |oi| %>
       <li>

@@ -20,93 +20,93 @@
 <br>
 
 
-    <% @restaurant.categories.each do |category| %>
-      <table>    
+<% @restaurant.categories.each do |category| %>
+  <table>    
+    <tr>
+      <th><h3>Category: <%= category.name %></h3></th>
+    </tr>
+    <tr>
+      <th>Image</th>
+      <th>Item Name</th>
+      <th>Price</th>
+      <th>Description</th>
+      
+    </tr>
 
+    <% category.menu_items.with_attached_images.each do |item| %>
+      <%= form_tag customers_orders_path, method: :post, remote: true do %>
         <tr>
-          <th><h3>Category: <%= category.name %></h3></th>
-        </tr>
-        <tr>
-          <th>Image</th>
-          <th>Item Name</th>
-          <th>Price</th>
-          <th>Description</th>
+          <%= hidden_field_tag :restaurant_id, @restaurant.id %>
           
+          <% if item.images.attached? %>
+            <td><%= image_tag item.images.first, style: "width: 50px;eight: 50px;" %> </td>
+          <% else %>
+            <td></td>
+          <% end %> 
+          <td> <%= item.name %> </td>
+          <% if item.variations.count > 0 %>
+            <td> Starting From <%= item.variations.order(:price).first.price.to_i%> Rs</td>
+          <% else %>
+            <td> <%= item.price %></td>
+          <% end %>
+          
+          <td> <%= item.note %> </td>
+          <%= hidden_field_tag :item_id, item.id %>
+          <td> <%= submit_tag "Add" %> </td>
+          <td><%= text_field_tag :quantity, 1, style: "width:50px" %></td>
+          <!-- <td> <%#= link_to "Edit", edit_owners_restaurant_path(item) %></td> -->
+          <!-- <td> <%#= link_to "Delete", owners_restaurant_path(item), method: :delete, data: {confirm: "Are you sure to delete?"} %> </td>
+              -->
+
         </tr>
-          <% category.menu_items.with_attached_images.each do |item| %>
-          <%= form_tag customers_orders_path, method: :post, remote: true do %>
-            <tr>
-              <% if item.images.attached? %>
-                <td><%= image_tag item.images.first, style: "width: 50px;eight: 50px;" %> </td>
-              <% else %>
-                <td></td>
-              <% end %> 
-              <td> <%= item.name %> </td>
-              <% if item.variations.count > 0 %>
-                <td> Starting From <%= item.variations.order(:price).first.price.to_i%> Rs</td>
-              <% else %>
-                <td> <%= item.price %></td>
+        
+        <% if item.variations.count > 0 %>
+          <tr>
+            <table>
+              <tr>
+                <h5>Variations </h5>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Description</th>
+              </tr>
+              <% item.variations.each do |variation| %>
+              <tr>
+                <td> <%= variation.name %></td>
+                <td> <%= variation.price %></td>
+                <td> <%= variation.description %></td>
+                <td> <%= radio_button_tag :variation_id, variation.id %> </td>
+              </tr>
               <% end %>
-              
-              <td> <%= item.note %> </td>
-              <%= hidden_field_tag :item_id, item.id %>
-              <td> <%= submit_tag "Add" %> </td>
-              <td><%= text_field_tag :quantity, 1, style: "width:50px" %></td>
-              <!-- <td> <%#= link_to "Edit", edit_owners_restaurant_path(item) %></td> -->
-              <!-- <td> <%#= link_to "Delete", owners_restaurant_path(item), method: :delete, data: {confirm: "Are you sure to delete?"} %> </td>
-                  -->
-
-            </tr>
-            
-            <% if item.variations.count > 0 %>
-              <tr>
-                <table>
-                  <tr>
-                    <h5>Variations </h5>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Description</th>
-                  </tr>
-                  <% item.variations.each do |variation| %>
-                  <tr>
-                    <td> <%= variation.name %></td>
-                    <td> <%= variation.price %></td>
-                    <td> <%= variation.description %></td>
-                    <td> <%= radio_button_tag :variation_id, variation.id %> </td>
-                  </tr>
-                  <% end %>
-                </table>
-              </tr>
-            <% end %>
-
-            <% if item.add_ons.count > 0 %>
-              <tr>
-                <table>
-                  <tr>
-                    <h5>Add-Ons</h5>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Description</th>
-                  </tr>
-                  <% item.add_ons.each do |add| %>
-                  <tr>
-                    <td> <%= add.name %></td>
-                    <td> <%= add.price %></td>
-                    <td> <%= add.description %></td>
-                    <td> <%= check_box_tag 'add_ids[]', add.id %>
-                  </tr>
-                  <% end %>
-                </table>
-              </tr>
-
-            <tr>-------------------------------------------------------------------------------------------</tr>
-    
-            <% end %>
+            </table>
+          </tr>
         <% end %>
-    <% end %>
-            
-    </table>
 
+        <% if item.add_ons.count > 0 %>
+          <tr>
+            <table>
+              <tr>
+                <h5>Add-Ons</h5>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Description</th>
+              </tr>
+              <% item.add_ons.each do |add| %>
+              <tr>
+                <td> <%= add.name %></td>
+                <td> <%= add.price %></td>
+                <td> <%= add.description %></td>
+                <td> <%= check_box_tag 'add_ids[]', add.id %>
+              </tr>
+              <% end %>
+            </table>
+          </tr>
+
+        <tr>-------------------------------------------------------------------------------------------</tr>
+
+        <% end %>
+      <% end %>
+    <% end %>            
+  </table>
 <% end %>  <!-- Form end -->
 
 
@@ -119,7 +119,7 @@
     <% end %>
   </div>
   <p> --------------------------------------------------------</p>
-  <div class="sub_total">Subtotal: 0</div>
+  <div class="sub_total"><%= "Subtotal: #{@sub_total}" %></div>
   <div class="DeliveryFee">Delivery Fee: <%= @restaurant.delivery_fee %> </div>
-  <div class="total">Total: 0</div>
+  <div class="total"><%= "Total: #{@total}" %></div>
 </div>
