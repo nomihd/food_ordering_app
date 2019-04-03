@@ -13,6 +13,11 @@
     <%= link_to "Home", home_path %>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
+
+    <% flash.each do |key, value| %>
+       <div class="alert alert-<%= key %>"><%= value %></div>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>

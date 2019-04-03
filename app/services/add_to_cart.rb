@@ -49,7 +49,7 @@ class AddToCart
   def fetch_order_item_by_add_on(order_items:)
     existing_item = false
     order_items.joins(:add_ons).each do |oi|
-      if oi.add_ons.pluck('id').sort == params[:add_ids].map(&:to_i).sort
+      if oi.add_ons.pluck('id').sort == params[:add_ids].map(&:to_i)
         @order_item = order.order_items.find(oi.id)
         existing_item = true
         break

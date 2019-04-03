@@ -3,7 +3,7 @@ class Customers::OrdersController < ApplicationController
   before_action :find_order, except: [:create, :index]
 
   def index
-    @orders = current_customer.orders.where(status: "completed")
+    @orders = current_customer.orders
   end
 
   def create
@@ -48,9 +48,12 @@ class Customers::OrdersController < ApplicationController
   end
 
   def checkout
-    @order.update(status: "completed")
+    if @order.update(status: "completed")
 
-    redirect_to customers_dashboard_index_path
+      flash[:success] = "Order has been placed"
+
+      redirect_to customers_restaurant_path(@order.order_items.first.menu_item.category.restaurant)
+    end
   end
   private
     def order_params
