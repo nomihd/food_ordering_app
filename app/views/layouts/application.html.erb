@@ -10,10 +10,16 @@
   </head>
 
   <body>
-    <%= link_to "Home", home_path %>
-    <p class="notice"><%= notice %></p>
+    <%= link_to "MainPage", home_path %>
+    <% if customer_signed_in? %>
+      <%= link_to "Home", customers_dashboard_index_path %>
+    <% elsif owner_signed_in? %>
+      <%= link_to "Home", owners_dashboard_index_path %>
+    <% end %>
+      
+    <!-- <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
-
+ -->
     <% flash.each do |key, value| %>
        <div class="alert alert-<%= key %>"><%= value %></div>
     <% end %>

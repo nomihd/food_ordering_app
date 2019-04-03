@@ -45,6 +45,11 @@ class Customers::OrdersController < ApplicationController
     session.delete(:order_id)
     @sub_total = 0
     @total = 0
+
+    respond_to do |format|
+      format.html {redirect_to customers_orders_path}
+      format.js
+    end
   end
 
   def checkout
