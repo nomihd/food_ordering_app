@@ -24,44 +24,9 @@ class AddToCart
         @order_item = fetch_order_item_without_add_on(order_items: order_items)
       end
     elsif params[:add_ids].present?
-        @order_item = fetch_order_item_by_add_on
+        @order_item = fetch_order_item_by_add_on(order_items: order_items)
     end
 
-  end
-
-  def fetch_order_item_without_add_on(order_items:)
-    existing_item_without_add_on = true
-    order_items.each do |oi|
-      if !oi.add_ons.present?
-        @order_item = order.order_items.find(oi.id)
-        existing_item_without_add_on = false
-        break
-      end
-    end
-
-    if existing_item_without_add_on
-      @order_item = nil
-    end
-
-    return @order_item
-  end
-
-  def fetch_order_item_by_add_on(order_items:)
-    existing_item = false
-    order_items.joins(:add_ons).each do |oi|
-      if oi.add_ons.pluck('id').sort == params[:add_ids].map(&:to_i)
-        @order_item = order.order_items.find(oi.id)
-        existing_item = true
-        break
-      end
-    
-    end
-      
-    if !existing_item
-      @order_item = nil
-    end
-
-    return @order_item
   end
 
   def call
@@ -130,6 +95,40 @@ class AddToCart
       return order
     end
 
+    def fetch_order_item_without_add_on(order_items:)
+      existing_item_without_add_on = true
+      order_items.each do |oi|
+        if !oi.add_ons.present?
+          @order_item = order.order_items.find(oi.id)
+          existing_item_without_add_on = false
+          break
+        end
+      end
+
+      if existing_item_without_add_on
+        @order_item = nil
+      end
+
+      return @order_item
+    end
+
+    def fetch_order_item_by_add_on(order_items:)
+      existing_item = false
+      order_items.joins(:add_ons).each do |oi|
+        if oi.add_ons.pluck('id').sort == params[:add_ids].map(&:to_i)
+          @order_item = order.order_items.find(oi.id)
+          existing_item = true
+          break
+        end
+      
+      end
+        
+      if !existing_item
+        @order_item = nil
+      end
+
+      return @order_item
+    end
     def update_quantity
       order_item.update(quantity: order_item.quantity + params[:quantity].to_i)
       order.save

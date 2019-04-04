@@ -30,6 +30,8 @@ gem 'cocoon'
 gem 'jquery-rails'
 #ransack for implementing search
 gem 'ransack'
+#activeadmin for admin
+gem 'activeadmin'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
