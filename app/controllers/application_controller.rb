@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::Base
   helper_method :current_order
+  # before_action :configure_permitted_parameters, if: :devise_controller?
+
   def current_order
     if !session[:order_id].nil?
       current_customer.orders.find(session[:order_id])
@@ -8,4 +10,14 @@ class ApplicationController < ActionController::Base
       current_customer.orders.new(status: "in_process")
     end
   end
+
+  protected
+  # override default inviter that was Owner itself
+    def authenticate_inviter!
+        authenticate_admin_user!(force: true)
+    end
+
+    # def configure_permitted_parameters
+    #   devise_parameter_sanitizer.permit(:accept_invitation, keys: [:first_name, :last_name])  
+    # end
 end

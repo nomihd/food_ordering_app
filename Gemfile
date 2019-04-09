@@ -32,6 +32,8 @@ gem 'jquery-rails'
 gem 'ransack'
 #activeadmin for admin
 gem 'activeadmin'
+# devise-invitable to invite restaurant owners
+gem 'devise_invitable', '~> 2.0.0'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
