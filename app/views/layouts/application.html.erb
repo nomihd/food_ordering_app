@@ -7,14 +7,16 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application' %>
+    <%= javascript_pack_tag 'application' %>
   </head>
 
   <body>
-    <%= link_to "MainPage", home_path %>
+    <%= link_to "MainPage", home_path, class: "text-blue hover:text-blue-darker"  %>
     <% if customer_signed_in? %>
-      <%= link_to "Home", customers_dashboard_index_path %>
+      <%= link_to "Home", customers_dashboard_index_path, class: "text-blue hover:text-blue-darker"  %>
     <% elsif owner_signed_in? %>
-      <%= link_to "Home", owners_dashboard_index_path %>
+      <%= link_to "Home", owners_dashboard_index_path, class: "text-blue hover:text-blue-darker"  %>
     <% end %>
       
     <!-- <p class="notice"><%= notice %></p>

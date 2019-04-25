@@ -4,5 +4,6 @@ class Restaurant < ApplicationRecord
 	has_many :menu_items, through: :categories
 	validates :name, uniqueness: true
 	validates :address, :price, :tags, presence: true
-	accepts_nested_attributes_for :categories, allow_destroy: true
+  has_one_attached :image
+  accepts_nested_attributes_for :categories, allow_destroy: true
 end

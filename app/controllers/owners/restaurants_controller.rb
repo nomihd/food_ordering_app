@@ -26,7 +26,7 @@ class Owners::RestaurantsController < ApplicationController
 			if params[:restaurant].present?
 				params.require(:restaurant).permit(
 					:name, :city, :address,
-					:price, :tags, :delivery_time, :delivery_fee, 
+					:price, :tags, :delivery_time, :delivery_fee, :image, 
 					categories_attributes: 
 						[:id, :_destroy, :name, 
 							menu_items_attributes: 

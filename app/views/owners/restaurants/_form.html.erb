@@ -1,6 +1,7 @@
 <%= render 'owners/shared/error_messages', resource: @restaurant %>
 <%= form_for [:owners, @restaurant] do |f| %>
   <div>
+    <%= f.file_field :image %>
     <%= f.label :name %>
     <%= f.text_field :name %>
     

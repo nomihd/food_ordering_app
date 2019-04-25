@@ -13,6 +13,22 @@ ActiveAdmin.register Restaurant do
 # end
   filter :owner
 
-  permit_params :name, :city, :address, :price, :tags, :delivery_time, :delivery_fee, :owner_id
+  permit_params :name, :city, :address, :price, :tags, :delivery_time, :delivery_fee, :owner_id, :image
+
+  form do |f|
+    f.inputs do
+      f.input :owner
+      f.input :name
+      f.input :city
+      f.input :address
+      f.input :price
+      f.input :tags
+      f.input :delivery_time
+      f.input :delivery_fee
+      f.input :image, as: :file
+    end
+    f.actions
+  end
+
 
 end

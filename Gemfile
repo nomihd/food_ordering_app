@@ -34,6 +34,9 @@ gem 'ransack'
 gem 'activeadmin'
 # devise-invitable to invite restaurant owners
 gem 'devise_invitable', '~> 2.0.0'
+
+gem 'webpacker', '~> 3.5'
+gem 'tailwindcss', '~> 0.2.0'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password

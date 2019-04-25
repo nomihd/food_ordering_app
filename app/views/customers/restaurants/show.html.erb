@@ -1,29 +1,36 @@
 <div>
-  <% if @restaurant.categories.first.menu_items.first.images.attached? %>
-                <div><%= image_tag @restaurant.categories.first.menu_items.first.images.first %> </div>
+
+  <div class="w-3/5 rounded overflow-hidden shadow-lg">
+        <% if @restaurant.image.attached? %>
+            <%= image_tag @restaurant.image, class: "w-full h-64"%> 
+        <% end %>
+          
+        <div class="px-6 py-4">
+          <div class="font-bold text-xl mb-2"><%= @restaurant.name %></div>
+          <p class="text-grey-darker text-base">
+            <%= "#{@restaurant.price}, #{@restaurant.tags}" %>
+          </p>
+          <p class="text-grey-darker text-base">
+            <%= "Address: #{@restaurant.address}, #{@restaurant.city}" %>
+          </p>
+          <p class="text-grey-darker text-base">
+            <%= "DeliveryFee: #{@restaurant.delivery_fee}, DeliveryTime: #{@restaurant.delivery_time}" %>
+          </p>
+          
+        </div>
+      </div>
+
+<ul class="list-reset flex">
+  <% @restaurant.categories.each do |category| %>
+    <li class="mr-6">
+      <a class="text-blue hover:text-blue-darker" href=<%="##{category.name}" %>> <%= category.name %></a>
+    </li>
   <% end %>
-  <strong><%= @restaurant.name %></strong>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<%= @restaurant.price %>
-  <br>
-  <%= @restaurant.address %>
-  <br>
-  <%= @restaurant.city %>
-  <br>
-  <strong>Tags:</strong>
-  <%= @restaurant.tags %>
-<br>
-  <strong>Delivery Time:</strong>
-  <%= @restaurant.delivery_time %>
-  &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;
-  <strong>Delivery Fee:</strong>
-  <%= @restaurant.delivery_fee %>
-</div>
-<br>
-
-
+</ul>
 <% @restaurant.categories.each do |category| %>
   <table>    
     <tr>
-      <th><h3>Category: <%= category.name %></h3></th>
+      <th><a id=<%="#{category.name}" %> ><h3>Category: <%= category.name %></h3></a></th>
     </tr>
     <tr>
       <th>Image</th>
@@ -52,8 +59,8 @@
           
           <td> <%= item.note %> </td>
           <%= hidden_field_tag :item_id, item.id %>
-          <td> <%= submit_tag "Add" %> </td>
-          <td><%= text_field_tag :quantity, 1, style: "width:50px" %></td>
+          <td> <%= submit_tag "Add", class: "btn btn-blue" %> </td>
+          <td><%= text_field_tag :quantity, 1, style: "width:50px", class: "field-input" %></td>
           <!-- <td> <%#= link_to "Edit", edit_owners_restaurant_path(item) %></td> -->
           <!-- <td> <%#= link_to "Delete", owners_restaurant_path(item), method: :delete, data: {confirm: "Are you sure to delete?"} %> </td>
               -->

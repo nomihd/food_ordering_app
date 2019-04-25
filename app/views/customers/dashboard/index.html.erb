@@ -1,55 +1,59 @@
 <h1>Customer Dashboard</h1>
 
 <p> Welcome <%= current_customer.first_name + " " + current_customer.last_name%> </p>
-<p><%= link_to "Sign Out", destroy_customer_session_path, method: :delete, data: {confirm: "Are you sure to signout?" } %> </p>
+<p><%= link_to "Sign Out", destroy_customer_session_path, method: :delete, data: {confirm: "Are you sure to signout?" }, class: "blue-link" %> </p>
 
-<p><%= link_to "Edit Profile", edit_customer_registration_path %> </p>
-<p><%= link_to "My Orders", customers_orders_path %> </p>
+<p><%= link_to "Edit Profile", edit_customer_registration_path, class: "blue-link" %> </p>
+<p><%= link_to "My Orders", customers_orders_path, class: "blue-link" %> </p>
+<div class="flex item-center" >
 
 <%= search_form_for [:customers, @q], url: customers_dashboard_index_path do |f| %>
 	
 	<br>
 	<h3> Search
   <%#= f.label :name %>
-  <%= f.search_field :name_cont %>
+  <%= f.search_field :name_cont, class: "field-input" %>
   <%= f.select :categories_name_eq, @categories, include_blank: "Select Category" %>
-  <%= f.submit "Search" %>
-</h3>
+  <%= f.submit "Search", class: "btn btn-blue" %>
+  </h3>
 
 <% end %>
+</div>
+<%= sort_link(@q, :name, "Name") %>
+<%= sort_link(@q, :city, "City") %>
+<%= sort_link(@q, :address, "Address") %>
+<%= sort_link(@q, :delivery_fee, "DeliveryFee") %>
+<%= sort_link(@q, :price, "Price") %>
+<%= sort_link(@q, :delivery_time, "DeliveryTime") %>
+
 <h1>All Restaurants</h1>
+<div class="flex flex-wrap sm:w-full md:w-full lg:w-full xl:w-full">          
+<% @restaurants.each do |restaurant| %>  
+  <div class="sm:w-full md:w-full lg:w-1/5 xl:w-1/5 m-3 rounded shadow-lg overflow-hidden">
+    <%= button_to customers_restaurant_path(restaurant), data: { turbolinks: false}, method: :get do %>
 
-<% unless @restaurants.blank? %>
-  <div class="content table-responsive table-full-width">
-    <table class="table table-hover table-stripped">
-      <thead>
-        <tr>
-          <th><%= sort_link(@q, :name, "Name") %></th>
-          <th><%= sort_link(@q, :city, "City") %></th>
-          <th><%= sort_link(@q, :address, "Address") %></th>
-          <th><%= sort_link(@q, :delivery_fee, "DeliveryFee") %></th>
-          <th><%= sort_link(@q, :price, "Price") %></th>
-          <th><%= sort_link(@q, :delivery_time, "DeliveryTime") %></th>
-          
-          <th colspan="6"></th>
-        </tr>
-      </thead>
-     
-      <tbody>
-          <% @restaurants.each do |restaurant| %>
-          <tr>
-            <td><%= restaurant.name %></td>
-            <td><%= restaurant.city %></td>
-            <td><%= restaurant.address %></td>
-            <td><%= restaurant.delivery_fee %></td>
-            <td><%= restaurant.price %></td>
-            <td><%= restaurant.delivery_time %></td>
-            <td><%= link_to "Show", customers_restaurant_path(restaurant), data: { turbolinks: false} %></td>
-            <!-- <td><%#= link_to "Edit", edit_restaurant_path(restaurant) %></td>
-            <td><%#= link_to "Destroy", restaurant, method: :delete, data: { confirm: "Are you sure?" } %></td>  -->
-          </tr>
+      <div class="max-w-xs rounded overflow-hidden shadow-lg">
+        <% if restaurant.image.attached? %>
+            <%= image_tag restaurant.image, class: "w-full h-48"%> 
         <% end %>
-      </tbody>
-    </table>
+          
+        <div class="px-6 py-4">
+          <div class="font-bold text-xl mb-2"><%= restaurant.name %></div>
+          <p class="text-grey-darker text-base">
+            <%= "#{restaurant.price}, #{restaurant.tags[0,15]}" %>
+          </p>
+          <p class="text-grey-darker text-base">
+            DeliveryFee: <%= restaurant.delivery_fee %>
+          </p>
+          <p class="text-grey-darker text-base">
+            DeliveryTime: <%= restaurant.delivery_time %>
+          </p>
+          
+        </div>
+      </div>
+    <% end %>
   </div>
+
+  <%# end %>       
 <% end %>
+</div>
